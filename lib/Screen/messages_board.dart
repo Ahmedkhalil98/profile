@@ -51,8 +51,9 @@ class _MessagesBoardState extends State<MessagesBoard> {
                             return Container(
                               width: 350,
                               height: 120,
-                              padding: EdgeInsets.all(15),
-                              margin: EdgeInsets.only(bottom: 10),
+                              padding: EdgeInsets.only(left: 10),
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 10),
                               decoration: BoxDecoration(
                                 color: Colors.grey[200],
                                 borderRadius: BorderRadius.circular(10),
@@ -62,16 +63,40 @@ class _MessagesBoardState extends State<MessagesBoard> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    data[index].data()["full Name"].toString(),
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        data[index]
+                                            .data()["full Name"]
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            _db
+                                                .collection("messages")
+                                                .where("full Name",
+                                                    isEqualTo: data[index]
+                                                        .data()["full Name"])
+                                                .get()
+                                                .then((value) {
+                                              value.docs.first.reference
+                                                  .delete();
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.delete,
+                                            size: 25,
+                                            color: Colors.redAccent,
+                                          ))
+                                    ],
                                   ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 5),
+                                  Expanded(
                                     child: Text(
                                       data[index].data()["message"].toString(),
                                       style: TextStyle(
