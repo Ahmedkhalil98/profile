@@ -97,8 +97,15 @@ class ProfilePage extends StatelessWidget {
         height: 50,
         width: 310,
         decoration: BoxDecoration(
-          color: color.withOpacity(0.2),
+          color: color.withOpacity(0.3),
           borderRadius: BorderRadius.circular(6),
+          // boxShadow: const [
+          //   BoxShadow(
+          //     color: Color.fromRGBO(0, 0, 0, 0.25),
+          //     blurRadius: 10,
+          //     offset: Offset(0, 10),
+          //   ),
+          // ],
         ),
         margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
         child: Row(
